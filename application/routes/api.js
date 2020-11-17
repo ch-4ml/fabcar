@@ -29,14 +29,24 @@ router.get('/cars/:carNo', async (req, res) => {
 
 router.post('/cars', async (req, res) => {
   const args = [req.body.carNo, req.body.make, req.body.model, req.body.colour, req.body.owner];
-  await callChainCode('createCar', true, ...args);
-  res.status(200).send({ result: true });
+  try {
+    await callChainCode('createCar', true, ...args);
+    res.status(200).send({ msg: 'Transaction has been submitted.' });
+  } catch(err) {
+    console.log(err);
+    res.status(500).send({ msg: 'Failed to submit transaction'});
+  }
 });
 
 router.put('/cars/:carNo', async (req, res) => {
   const args = [req.params.carNo, req.body.owner];
-  await callChainCode('changeCarOwner', true, ...args);
-  res.status(200).send({ result: true });
+  try {
+    await callChainCode('changeCarOwner', true, ...args);
+    res.status(200).send({ msg: 'Transaction has been submitted.' });
+  } catch(err) {
+    console.log(err);
+    res.status(500).send({ msg: 'Failed to submit transaction'});
+  }
 });
 
 async function callChainCode(fnName, isSubmit, ...args) {
@@ -67,7 +77,7 @@ async function callChainCode(fnName, isSubmit, ...args) {
     let result;
     if(isSubmit) {
       result = await contract.submitTransaction(fnName, ...args);
-      console.log(`Transaction has been submitted. result: ${result.toString()}`);
+      console.log('Transaction has been submitted.');
     } else {
       result = await contract.evaluateTransaction(fnName, ...args);
       console.log(`Transaction has been evaluated. result: ${result.toString()}`);
@@ -75,7 +85,7 @@ async function callChainCode(fnName, isSubmit, ...args) {
     return result;
 
   } catch(err) {
-    console.error(`Failed to evaluate transaction: ${error}`);
+    console.error(`Failed to create transaction: ${error}`);
     return 'error occurred!!!';
   }
 }
