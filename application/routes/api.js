@@ -16,26 +16,27 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/api/cars', async (req, res) => {
+router.get('/cars', async (req, res) => {
   const result = await callChainCode('queryAllCars', false);
   res.json(JSON.parse(result));
 });
 
-router.get('/api/cars/:carNo', async (req, res) => {
+router.get('/cars/:carNo', async (req, res) => {
   const carNo = req.params.carNo;
   const result = await callChainCode('queryCar', false, carNo);
   res.json(JSON.parse(result));
 });
 
-router.post('/api/cars', async (req, res) => {
+router.post('/cars', async (req, res) => {
   const args = [req.body.carNo, req.body.make, req.body.model, req.body.colour, req.body.owner];
-  await callChainCode('createCar', true, args);
-
+  await callChainCode('createCar', true, ...args);
+  res.status(200).send({ result: true });
 });
 
-router.put('/api/cars/:carNo', async (req, res) => {
-  const args = [req.params.carNo, req.body.carOwner];
-  await callChainCode('changeCarOwner', args);
+router.put('/cars/:carNo', async (req, res) => {
+  const args = [req.params.carNo, req.body.owner];
+  await callChainCode('changeCarOwner', true, ...args);
+  res.status(200).send({ result: true });
 });
 
 async function callChainCode(fnName, isSubmit, ...args) {

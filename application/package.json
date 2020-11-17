@@ -10,6 +10,9 @@
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "fabric-ca-client": "^1.4.14",
+    "fabric-client": "^1.4.14",
+    "fabric-network": "^1.4.14",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1"
   }
