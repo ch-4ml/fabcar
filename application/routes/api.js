@@ -76,7 +76,7 @@ async function callChainCode(fnName, isSubmit, ...args) {
 
   } catch(err) {
     console.error(`Failed to evaluate transaction: ${error}`);
-    process.exit(1);
+    return 'error occurred!!!';
   }
 }
 
