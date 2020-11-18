@@ -10276,3 +10276,39 @@ form .row:first-child .floating-label-form-group {
 .copyright {
   background-color: #1a252f;
 }
+
+/* table */
+.table-car {
+  border-collapse: collapse;
+  margin: 2rem 0;
+  font-size: 0.9rem;
+  min-width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.table-car thead tr {
+  background-color: #009879;
+  color: #ffffff;
+}
+
+.table-car th,
+.table-car td {
+    padding: 0.8rem 1.2rem;
+}
+
+.table-car tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.table-car tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.table-car tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.table-car tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}

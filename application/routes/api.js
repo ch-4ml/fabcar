@@ -23,8 +23,12 @@ router.get('/cars', async (req, res) => {
 
 router.get('/cars/:carNo', async (req, res) => {
   const carNo = req.params.carNo;
-  const result = await callChainCode('queryCar', false, carNo);
-  res.json(JSON.parse(result));
+  try {
+    const result = await callChainCode('queryCar', false, carNo);
+    res.json(JSON.parse(result));
+  } catch(err) {
+    res.status(400).send(null);
+  }
 });
 
 router.post('/cars', async (req, res) => {
