@@ -1,2 +1,4 @@
 /application/wallet
 /application/node_modules
+/basic-network/config/*
+/basic-network/crypto-config/*
